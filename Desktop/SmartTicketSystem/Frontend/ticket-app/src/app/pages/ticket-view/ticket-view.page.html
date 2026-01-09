@@ -1,0 +1,232 @@
+<div class="page">
+  <button mat-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+    Back
+  </button>
+
+  <app-loading *ngIf="loading"></app-loading>
+
+  <div *ngIf="!loading && ticket">
+    <div class="header">
+      <div>
+        <h1>{{ ticket.title }}</h1>
+        <p>
+          Ticket #{{ ticket.id }} • Created {{ ticket.createdAt | date:'medium' }}
+        </p>
+      </div>
+      <div class="badges">
+        <app-priority-badge [priority]="ticket.priority"></app-priority-badge>
+        <app-status-badge [status]="ticket.status"></app-status-badge>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="main">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Description</mat-card-title>
+            <!-- ✅ EDIT BUTTON -->
+            <button mat-icon-button *ngIf="canEditTicket()" (click)="editTicket()" matTooltip="Edit Ticket">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ ticket.description }}</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card *ngIf="ticket.resolutionNotes">
+          <mat-card-header>
+            <mat-card-title>Resolution</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ ticket.resolutionNotes }}</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              Comments ({{ ticket.comments?.length || 0 }})
+            </mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div *ngFor="let c of ticket.comments" class="comment">
+              <div class="comment-header">
+                <strong>{{ c.userName }}</strong>
+                <span>{{ c.createdAt | date:'short' }}</span>
+                <span *ngIf="c.isInternal" class="internal">Internal</span>
+                <!-- ✅ DELETE COMMENT BUTTON -->
+                <button 
+                  mat-icon-button 
+                  *ngIf="canDeleteComment(c.userId)" 
+                  (click)="deleteComment(c.id, c.userId)"
+                  matTooltip="Delete Comment">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+              <p>{{ c.comment }}</p>
+            </div>
+
+            <!-- ADD COMMENT FORM -->
+            <form [formGroup]="commentForm" (ngSubmit)="addComment()" *ngIf="canUpdate()">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Add comment</mat-label>
+                <textarea matInput formControlName="comment" rows="3"></textarea>
+              </mat-form-field>
+
+              <div class="comment-actions">
+                <mat-checkbox
+                  formControlName="isInternal"
+                  *ngIf="canSeeInternal()"
+                >
+                  Internal (not visible to customer)
+                </mat-checkbox>
+
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="submit"
+                  [disabled]="commentForm.invalid"
+                >
+                  Add Comment
+                </button>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card *ngIf="ticket.history && ticket.history.length > 0">
+          <mat-card-header>
+            <mat-card-title>Activity History</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div *ngFor="let h of ticket.history" class="history">
+              <strong>{{ h.userName }}</strong>
+              {{ h.action }}
+              <span style="color: #999;">{{ h.createdAt | date:'short' }}</span>
+              <p *ngIf="h.notes">{{ h.notes }}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="side">
+        <!-- ==================== ACTIONS CARD ==================== -->
+        <mat-card *ngIf="canUpdate() || canEditTicket()">
+          <mat-card-header>
+            <mat-card-title>Actions</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <!-- ✅ EDIT TICKET -->
+            <button 
+              mat-raised-button 
+              class="full-width" 
+              (click)="editTicket()"
+              *ngIf="canEditTicket()"
+              style="margin-bottom: 0.5rem;">
+              <mat-icon>edit</mat-icon>
+              Edit Ticket
+            </button>
+
+            <!-- ✅ START WORK -->
+            <button 
+              mat-raised-button 
+              color="primary" 
+              class="full-width" 
+              (click)="startWork()"
+              *ngIf="canStartWork() && ticket.status === 'Assigned'"
+              style="margin-bottom: 0.5rem;">
+              <mat-icon>play_arrow</mat-icon>
+              Start Work
+            </button>
+
+            <!-- ✅ RESOLVE -->
+            <button 
+              mat-raised-button 
+              color="accent" 
+              class="full-width" 
+              (click)="resolve()"
+              *ngIf="canResolve() && (ticket.status === 'InProgress' || ticket.status === 'Assigned')"
+              style="margin-bottom: 0.5rem;">
+              <mat-icon>check_circle</mat-icon>
+              Resolve Ticket
+            </button>
+
+            <!-- ✅ CLOSE -->
+            <button 
+              mat-raised-button 
+              class="full-width" 
+              (click)="close()"
+              *ngIf="(currentUserRole === 'Admin' || currentUserRole === 'SupportManager') && ticket.status === 'Resolved'"
+              style="margin-bottom: 0.5rem;">
+              <mat-icon>lock</mat-icon>
+              Close Ticket
+            </button>
+
+            <!-- ✅ REOPEN -->
+            <button 
+              mat-raised-button 
+              color="warn" 
+              class="full-width" 
+              (click)="reopen()"
+              *ngIf="ticket.status === 'Closed'"
+              style="margin-bottom: 0.5rem;">
+              <mat-icon>refresh</mat-icon>
+              Reopen Ticket
+            </button>
+
+            <!-- ✅ DELETE TICKET -->
+            <button 
+              mat-raised-button 
+              color="warn" 
+              class="full-width" 
+              (click)="deleteTicket()"
+              *ngIf="canDeleteTicket()"
+              style="margin-bottom: 0.5rem;">
+              <mat-icon>delete</mat-icon>
+              Delete Ticket
+            </button>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- ==================== DETAILS CARD ==================== -->
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Ticket Details</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="detail">
+              <span>Category:</span>
+              <span>{{ ticket.categoryName }}</span>
+            </div>
+            <div class="detail">
+              <span>Created By:</span>
+              <span>{{ ticket.createdByName }}</span>
+            </div>
+            <div class="detail">
+              <span>Assigned To:</span>
+              <span>{{ ticket.assignedToName || 'Unassigned' }}</span>
+            </div>
+            <div class="detail" *ngIf="ticket.dueDate">
+              <span>Due Date:</span>
+              <span [style.color]="ticket.isOverdue ? 'red' : 'inherit'">
+                {{ ticket.dueDate | date:'short' }}
+                <span *ngIf="ticket.isOverdue" style="font-weight: bold;"> (OVERDUE)</span>
+              </span>
+            </div>
+            <div class="detail" *ngIf="ticket.resolvedAt">
+              <span>Resolved:</span>
+              <span>{{ ticket.resolvedAt | date:'short' }}</span>
+            </div>
+            <div class="detail" *ngIf="ticket.closedAt">
+              <span>Closed:</span>
+              <span>{{ ticket.closedAt | date:'short' }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

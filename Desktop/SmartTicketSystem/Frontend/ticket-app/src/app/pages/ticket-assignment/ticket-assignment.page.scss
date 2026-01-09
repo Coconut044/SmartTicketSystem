@@ -1,0 +1,147 @@
+.page {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  button mat-icon {
+    margin-right: 8px;
+  }
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  margin-bottom: 24px;
+  background: #e3f2fd;
+  border-left: 4px solid #2196f3;
+
+  mat-icon {
+    color: #2196f3;
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .info-content {
+    h3 {
+      margin: 0 0 4px 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #1565c0;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: #424242;
+    }
+  }
+}
+
+.agents-summary {
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 24px;
+
+  h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .agent-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    mat-chip {
+      &.low-workload {
+        background: #c8e6c9;
+        color: #2e7d32;
+      }
+
+      &.medium-workload {
+        background: #fff9c4;
+        color: #f57f17;
+      }
+
+      &.high-workload {
+        background: #ffcdd2;
+        color: #c62828;
+      }
+    }
+  }
+}
+
+.table-container {
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+
+    th {
+      font-weight: 600;
+      color: #424242;
+    }
+
+    td {
+      a {
+        color: #1976d2;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .assign-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .agent-select {
+          min-width: 200px;
+          margin-bottom: -1.25em;
+        }
+
+        button mat-icon {
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+}
+
+.no-data {
+  text-align: center;
+  padding: 48px 24px;
+  color: #757575;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #4caf50;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 16px;
+    margin: 0;
+  }
+}

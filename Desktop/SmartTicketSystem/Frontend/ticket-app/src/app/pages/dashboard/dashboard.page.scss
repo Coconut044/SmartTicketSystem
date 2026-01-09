@@ -1,0 +1,25 @@
+.page { padding: 24px; }
+h1 { margin-bottom: 24px; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+  mat-card { text-align: center; }
+  h3 { margin: 0; color: #666; font-size: 14px; }
+  h2 { margin: 8px 0 0; font-size: 32px; font-weight: bold; }
+  .warn { color: #f44336; }
+}
+.charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.chart-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+  .bar { height: 24px; background: #3f51b5; border-radius: 4px; }
+}

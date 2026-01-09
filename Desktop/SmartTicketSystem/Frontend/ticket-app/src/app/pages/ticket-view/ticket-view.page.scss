@@ -1,0 +1,8 @@
+.header { display: flex; justify-content: space-between; margin-bottom: 24px; }
+.badges { display: flex; gap: 12px; }
+.grid { display: grid; grid-template-columns: 1fr 350px; gap: 24px; }
+.comment, .history { padding: 12px; border-left: 3px solid #e0e0e0; margin-bottom: 12px; }
+.comment-header { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+.internal { background: #ff9800; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+.comment-actions { display: flex; justify-content: space-between; align-items: center; }
+.detail { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }

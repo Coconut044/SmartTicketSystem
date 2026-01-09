@@ -1,0 +1,191 @@
+<div class="page">
+  <div class="header">
+    <h1>Reports & Analytics</h1>
+    <div class="actions">
+      <button mat-raised-button (click)="refresh()">
+        <mat-icon>refresh</mat-icon>Refresh
+      </button>
+      <button mat-raised-button color="primary" (click)="exportReport()">
+        <mat-icon>download</mat-icon>Export
+      </button>
+    </div>
+  </div>
+
+  <app-loading *ngIf="loading"></app-loading>
+
+  <div *ngIf="!loading && stats" class="content">
+    <!-- My Workload Section -->
+    <mat-card class="table-card" *ngIf="agentPerformance.length > 0">
+      <h2>My Workload</h2>
+      <div class="stats-grid">
+        <mat-card class="stat-card" *ngFor="let agent of agentPerformance">
+          <mat-icon class="stat-icon total">person</mat-icon>
+          <div class="stat-content">
+            <div class="stat-value">{{agent.totalAssigned}}</div>
+            <div class="stat-label">Total Assigned</div>
+          </div>
+        </mat-card>
+        
+        <mat-card class="stat-card" *ngFor="let agent of agentPerformance">
+          <mat-icon class="stat-icon open">inbox</mat-icon>
+          <div class="stat-content">
+            <div class="stat-value">{{agent.openTickets}}</div>
+            <div class="stat-label">Open Tickets</div>
+          </div>
+        </mat-card>
+        
+        <mat-card class="stat-card" *ngFor="let agent of agentPerformance">
+          <mat-icon class="stat-icon progress">schedule</mat-icon>
+          <div class="stat-content">
+            <div class="stat-value">{{agent.inProgressTickets}}</div>
+            <div class="stat-label">In Progress</div>
+          </div>
+        </mat-card>
+        
+        <mat-card class="stat-card" *ngFor="let agent of agentPerformance">
+          <mat-icon class="stat-icon resolved">check_circle</mat-icon>
+          <div class="stat-content">
+            <div class="stat-value">{{agent.resolvedTickets}}</div>
+            <div class="stat-label">Resolved</div>
+          </div>
+        </mat-card>
+        
+        <mat-card class="stat-card" *ngFor="let agent of agentPerformance">
+          <mat-icon class="stat-icon total">access_time</mat-icon>
+          <div class="stat-content">
+            <div class="stat-value">{{agent.averageResolutionTimeHours.toFixed(1)}}</div>
+            <div class="stat-label">Avg Resolution (hrs)</div>
+          </div>
+        </mat-card>
+        
+        <mat-card class="stat-card" *ngFor="let agent of agentPerformance">
+          <mat-icon class="stat-icon progress">work</mat-icon>
+          <div class="stat-content">
+            <div class="stat-value">{{agent.openTickets + agent.inProgressTickets}}</div>
+            <div class="stat-label">Current Workload</div>
+          </div>
+        </mat-card>
+      </div>
+    </mat-card>
+
+    <!-- Overview Stats -->
+    <div class="stats-grid">
+      <mat-card class="stat-card">
+        <mat-icon class="stat-icon total">confirmation_number</mat-icon>
+        <div class="stat-content">
+          <div class="stat-value">{{stats.totalTickets}}</div>
+          <div class="stat-label">Total Tickets</div>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-icon class="stat-icon open">inbox</mat-icon>
+        <div class="stat-content">
+          <div class="stat-value">{{stats.openTickets}}</div>
+          <div class="stat-label">Open Tickets</div>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-icon class="stat-icon progress">schedule</mat-icon>
+        <div class="stat-content">
+          <div class="stat-value">{{stats.inProgressTickets}}</div>
+          <div class="stat-label">In Progress</div>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-icon class="stat-icon resolved">check_circle</mat-icon>
+        <div class="stat-content">
+          <div class="stat-value">{{stats.resolvedTickets}}</div>
+          <div class="stat-label">Resolved</div>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-icon class="stat-icon closed">done_all</mat-icon>
+        <div class="stat-content">
+          <div class="stat-value">{{stats.closedTickets}}</div>
+          <div class="stat-label">Closed</div>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-icon class="stat-icon overdue">warning</mat-icon>
+        <div class="stat-content">
+          <div class="stat-value">{{stats.overdueTickets}}</div>
+          <div class="stat-label">Overdue</div>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Average Resolution Time -->
+    <mat-card class="info-card">
+      <h2>Average Resolution Time</h2>
+      <div class="large-stat">
+        <span class="value">{{stats.averageResolutionTimeHours.toFixed(1)}}</span>
+        <span class="unit">hours</span>
+      </div>
+    </mat-card>
+
+    <!-- Distribution Charts -->
+    <div class="charts-grid">
+      <mat-card class="chart-card">
+        <h2>Tickets by Priority</h2>
+        <div class="chart-content">
+          <div *ngFor="let key of priorityKeys" class="chart-bar">
+            <div class="bar-label">{{key}}</div>
+            <div class="bar-wrapper">
+              <div
+                class="bar"
+                [style.width.%]="getPercentage(stats.ticketsByPriority[key], stats.totalTickets)">
+              </div>
+              <span class="bar-value">
+                {{stats.ticketsByPriority[key]}}
+                ({{getPercentage(stats.ticketsByPriority[key], stats.totalTickets)}}%)
+              </span>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+
+      <mat-card class="chart-card">
+        <h2>Tickets by Status</h2>
+        <div class="chart-content">
+          <div *ngFor="let key of statusKeys" class="chart-bar">
+            <div class="bar-label">{{key}}</div>
+            <div class="bar-wrapper">
+              <div
+                class="bar"
+                [style.width.%]="getPercentage(stats.ticketsByStatus[key], stats.totalTickets)">
+              </div>
+              <span class="bar-value">
+                {{stats.ticketsByStatus[key]}}
+                ({{getPercentage(stats.ticketsByStatus[key], stats.totalTickets)}}%)
+              </span>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+
+      <mat-card class="chart-card full-width">
+        <h2>Tickets by Category</h2>
+        <div class="chart-content">
+          <div *ngFor="let key of categoryKeys" class="chart-bar">
+            <div class="bar-label">{{key}}</div>
+            <div class="bar-wrapper">
+              <div
+                class="bar"
+                [style.width.%]="getPercentage(stats.ticketsByCategory[key], stats.totalTickets)">
+              </div>
+              <span class="bar-value">
+                {{stats.ticketsByCategory[key]}}
+                ({{getPercentage(stats.ticketsByCategory[key], stats.totalTickets)}}%)
+              </span>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

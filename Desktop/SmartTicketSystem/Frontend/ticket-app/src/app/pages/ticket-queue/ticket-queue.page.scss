@@ -1,0 +1,100 @@
+.page {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ================= HEADER ================= */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .subtitle {
+    color: rgba(0, 0, 0, 0.6);
+    margin: 5px 0 0 0;
+    font-size: 14px;
+  }
+
+  button {
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+/* ================= FILTERS ================= */
+.filters {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+
+  mat-form-field {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  button {
+    margin-top: 8px;
+  }
+}
+
+/* ================= TABLE ================= */
+table,
+.queue-table {
+  width: 100%;
+
+  th {
+    font-weight: 600;
+    color: #424242;
+  }
+
+  td {
+    a,
+    .ticket-link {
+      color: #1976d2;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &.overdue,
+    .overdue {
+      color: #f44336;
+      font-weight: 600;
+    }
+
+    .unassigned {
+      color: #f44336;
+      font-style: italic;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 5px;
+    }
+  }
+}
+
+/* ================= PAGINATOR ================= */
+mat-paginator {
+  border-top: 1px solid #e0e0e0;
+}
+
+/* ================= CARD ================= */
+mat-card {
+  margin-bottom: 20px;
+}

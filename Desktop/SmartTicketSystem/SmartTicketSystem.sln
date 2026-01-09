@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{1AE8ACA6-933B-BF2A-3671-3E2EAC007D16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTicket.Tests", "Backend\SmartTicket.Tests\SmartTicket.Tests.csproj", "{84804E98-6356-194F-A1F0-0F8DF215A4C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTicket.API", "Backend\SmartTicket.API\SmartTicket.API.csproj", "{D08B0B3E-7311-076D-0431-16B7DA109CAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84804E98-6356-194F-A1F0-0F8DF215A4C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84804E98-6356-194F-A1F0-0F8DF215A4C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84804E98-6356-194F-A1F0-0F8DF215A4C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84804E98-6356-194F-A1F0-0F8DF215A4C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D08B0B3E-7311-076D-0431-16B7DA109CAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D08B0B3E-7311-076D-0431-16B7DA109CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D08B0B3E-7311-076D-0431-16B7DA109CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D08B0B3E-7311-076D-0431-16B7DA109CAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{84804E98-6356-194F-A1F0-0F8DF215A4C4} = {1AE8ACA6-933B-BF2A-3671-3E2EAC007D16}
+		{D08B0B3E-7311-076D-0431-16B7DA109CAE} = {1AE8ACA6-933B-BF2A-3671-3E2EAC007D16}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {498BD156-8F7A-4101-B509-718832E52EA3}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,235 @@
+// App Container
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+// Toolbar
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #1a2332 0%, #243447 100%) !important;
+
+  .menu-button {
+    margin-right: 16px;
+  }
+
+  .app-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+
+    .logo-icon {
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+      color: #4ade80;
+    }
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .user-menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .user-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+
+      .user-name {
+        @media (max-width: 600px) {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// Sidenav Container
+.sidenav-container {
+  flex: 1;
+  height: calc(100vh - 64px);
+}
+
+// Sidenav
+.app-sidenav {
+  width: 280px;
+  background: white;
+  border-right: 1px solid #e2e8f0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+
+  @media (max-width: 768px) {
+    width: 260px;
+  }
+
+  .nav-list {
+    padding: 16px 8px;
+
+    a[mat-list-item] {
+      border-radius: 12px;
+      margin-bottom: 8px;
+      height: 56px;
+      color: #64748b;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: #4ade80;
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
+      }
+
+      mat-icon {
+        color: #94a3b8;
+        transition: color 0.3s ease;
+      }
+
+      &:hover {
+        background: rgba(74, 222, 128, 0.08);
+        color: #4ade80;
+
+        mat-icon {
+          color: #4ade80;
+        }
+      }
+
+      &.active-link {
+        background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(59, 130, 246, 0.08));
+        color: #4ade80;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(74, 222, 128, 0.15);
+
+        &::before {
+          transform: scaleY(1);
+        }
+
+        mat-icon {
+          color: #4ade80;
+        }
+      }
+    }
+  }
+}
+
+// Main Content
+.main-content {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.page-wrapper {
+  min-height: 100%;
+  padding: 24px;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+}
+
+// Auth Wrapper
+.auth-wrapper {
+  min-height: 100vh;
+}
+
+// Material Menu Overrides
+::ng-deep .mat-mdc-menu-panel {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+  margin-top: 8px;
+}
+
+::ng-deep .mat-mdc-menu-item {
+  min-height: 48px !important;
+
+  mat-icon {
+    margin-right: 12px;
+    color: #64748b;
+  }
+
+  &:hover {
+    background-color: rgba(74, 222, 128, 0.08) !important;
+
+    mat-icon {
+      color: #4ade80;
+    }
+  }
+
+  &[disabled] {
+    background-color: rgba(74, 222, 128, 0.05) !important;
+    opacity: 1 !important;
+
+    mat-icon {
+      color: #4ade80;
+    }
+
+    span {
+      color: #4ade80;
+      font-weight: 600;
+    }
+  }
+}
+
+// Badge Override
+::ng-deep .mat-badge-content {
+  background: #ef4444 !important;
+  color: white !important;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .app-toolbar {
+    .app-title {
+      font-size: 16px;
+
+      .logo-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
+
+// Scrollbar for main content
+.main-content {
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 5px;
+
+    &:hover {
+      background: #94a3b8;
+    }
+  }
+}

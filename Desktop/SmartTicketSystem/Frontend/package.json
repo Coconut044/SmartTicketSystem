@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@angular/animations": "^21.0.6",
+    "@angular/cdk": "^21.0.5",
+    "@angular/material": "^21.0.5",
+    "bootstrap": "^5.3.8",
+    "jwt-decode": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3"
+  }
+}

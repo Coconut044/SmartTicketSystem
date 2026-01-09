@@ -1,0 +1,441 @@
+// ============================================
+// ServiceNow-Inspired Global Styles
+// ============================================
+
+// Material Theme
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+// Bootstrap (if needed)
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+// ============================================
+// CSS Reset & Base Styles
+// ============================================
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+// ============================================
+// Typography
+// ============================================
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1e293b;
+  letter-spacing: -0.5px;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+  margin-bottom: 1rem;
+  color: #64748b;
+}
+
+a {
+  color: #4ade80;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: #22c55e;
+  }
+}
+
+// ============================================
+// Material Design Overrides
+// ============================================
+
+// Primary Color Override
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-fab.mat-primary,
+.mat-mdc-mini-fab.mat-primary {
+  --mdc-protected-button-container-color: #4ade80;
+  --mdc-protected-button-label-text-color: #ffffff;
+}
+
+// Form Fields
+.mat-mdc-form-field {
+  &.mat-focused {
+    .mat-mdc-notched-outline {
+      border-color: #4ade80 !important;
+    }
+    
+    .mat-mdc-floating-label {
+      color: #4ade80 !important;
+    }
+  }
+  
+  .mat-mdc-notched-outline {
+    border-color: #e2e8f0;
+  }
+}
+
+// Tabs
+.mat-mdc-tab-group {
+  .mat-mdc-tab.mat-mdc-tab-active {
+    .mdc-tab__text-label {
+      color: #4ade80;
+    }
+  }
+  
+  .mdc-tab-indicator__content--underline {
+    border-color: #4ade80;
+  }
+}
+
+// Buttons
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border-radius: 8px;
+}
+
+// Cards
+.mat-mdc-card {
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+// ============================================
+// Utility Classes
+// ============================================
+
+// Width
+.full-width {
+  width: 100% !important;
+}
+
+.max-width {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+// Text Alignment
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+// Display
+.flex { display: flex; }
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Spacing - Margin
+.m-0 { margin: 0 !important; }
+.mt-1 { margin-top: 8px !important; }
+.mt-2 { margin-top: 16px !important; }
+.mt-3 { margin-top: 24px !important; }
+.mt-4 { margin-top: 32px !important; }
+.mt-5 { margin-top: 40px !important; }
+
+.mb-1 { margin-bottom: 8px !important; }
+.mb-2 { margin-bottom: 16px !important; }
+.mb-3 { margin-bottom: 24px !important; }
+.mb-4 { margin-bottom: 32px !important; }
+.mb-5 { margin-bottom: 40px !important; }
+
+.ml-1 { margin-left: 8px !important; }
+.ml-2 { margin-left: 16px !important; }
+.ml-3 { margin-left: 24px !important; }
+
+.mr-1 { margin-right: 8px !important; }
+.mr-2 { margin-right: 16px !important; }
+.mr-3 { margin-right: 24px !important; }
+
+.mx-auto { margin-left: auto !important; margin-right: auto !important; }
+
+// Spacing - Padding
+.p-0 { padding: 0 !important; }
+.p-1 { padding: 8px !important; }
+.p-2 { padding: 16px !important; }
+.p-3 { padding: 24px !important; }
+.p-4 { padding: 32px !important; }
+
+.pt-1 { padding-top: 8px !important; }
+.pt-2 { padding-top: 16px !important; }
+.pt-3 { padding-top: 24px !important; }
+
+.pb-1 { padding-bottom: 8px !important; }
+.pb-2 { padding-bottom: 16px !important; }
+.pb-3 { padding-bottom: 24px !important; }
+
+.px-2 { padding-left: 16px !important; padding-right: 16px !important; }
+.px-3 { padding-left: 24px !important; padding-right: 24px !important; }
+
+.py-2 { padding-top: 16px !important; padding-bottom: 16px !important; }
+.py-3 { padding-top: 24px !important; padding-bottom: 24px !important; }
+
+// ============================================
+// Loading/Spinner
+// ============================================
+
+.spinner-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  
+  mat-spinner {
+    --mdc-circular-progress-active-indicator-color: #4ade80;
+  }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+// ============================================
+// Status Badges
+// ============================================
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 13px;
+  border: 1px solid;
+  
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.badge-success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.badge-warning {
+  background: rgba(234, 179, 8, 0.1);
+  color: #eab308;
+  border-color: rgba(234, 179, 8, 0.3);
+}
+
+.badge-danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.badge-info {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.badge-primary {
+  background: rgba(74, 222, 128, 0.1);
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+// ============================================
+// Card Enhancements
+// ============================================
+
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+  
+  &.card-gradient {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.05), rgba(59, 130, 246, 0.05));
+    border: 2px solid rgba(74, 222, 128, 0.1);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f1f5f9;
+  
+  mat-icon {
+    color: #4ade80;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+  
+  h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+// ============================================
+// Animations
+// ============================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-out;
+}
+
+// ============================================
+// Scrollbar Styling
+// ============================================
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 5px;
+  
+  &:hover {
+    background: #94a3b8;
+  }
+}
+
+// ============================================
+// Responsive Utilities
+// ============================================
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+  
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+}
+
+@media (min-width: 769px) {
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+// ============================================
+// Focus States
+// ============================================
+
+*:focus-visible {
+  outline: 2px solid #4ade80;
+  outline-offset: 2px;
+}
+
+// ============================================
+// Selection
+// ============================================
+
+::selection {
+  background: rgba(74, 222, 128, 0.3);
+  color: #1e293b;
+}
+
+// ============================================
+// Print Styles
+// ============================================
+
+@media print {
+  body {
+    background: white;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}

@@ -1,0 +1,44 @@
+<div class="page">
+  <h1>Dashboard</h1>
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading && stats">
+    <div class="stats-grid">
+      <mat-card><mat-card-content><h3>Total</h3><h2>{{stats.totalTickets}}</h2></mat-card-content></mat-card>
+      <mat-card><mat-card-content><h3>Open</h3><h2>{{stats.openTickets}}</h2></mat-card-content></mat-card>
+      <mat-card><mat-card-content><h3>In Progress</h3><h2>{{stats.inProgressTickets}}</h2></mat-card-content></mat-card>
+      <mat-card><mat-card-content><h3>Resolved</h3><h2>{{stats.resolvedTickets}}</h2></mat-card-content></mat-card>
+      <mat-card><mat-card-content><h3>Closed</h3><h2>{{stats.closedTickets}}</h2></mat-card-content></mat-card>
+      <mat-card><mat-card-content><h3>Overdue</h3><h2 class="warn">{{stats.overdueTickets}}</h2></mat-card-content></mat-card>
+    </div>
+    <div class="charts">
+      <mat-card>
+        <mat-card-header><mat-card-title>By Status</mat-card-title></mat-card-header>
+        <mat-card-content>
+          <div *ngFor="let item of getStatusData()" class="chart-row">
+            <app-status-badge [status]="item.status"></app-status-badge>
+            <div class="bar" [style.width.%]="getPercentage(item.count, stats.totalTickets)"></div>
+            <span>{{item.count}}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-header><mat-card-title>By Priority</mat-card-title></mat-card-header>
+        <mat-card-content>
+          <div *ngFor="let item of getPriorityData()" class="chart-row">
+            <app-priority-badge [priority]="item.priority"></app-priority-badge>
+            <div class="bar" [style.width.%]="getPercentage(item.count, stats.totalTickets)"></div>
+            <span>{{item.count}}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <mat-card>
+      <mat-card-header><mat-card-title>Quick Actions</mat-card-title></mat-card-header>
+      <mat-card-content>
+        <button mat-raised-button color="primary" routerLink="/tickets/create"><mat-icon>add</mat-icon>Create Ticket</button>
+        <button mat-raised-button routerLink="/tickets"><mat-icon>list</mat-icon>All Tickets</button>
+        <button mat-raised-button routerLink="/my-tickets"><mat-icon>assignment</mat-icon>My Tickets</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
